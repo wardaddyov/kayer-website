@@ -1,0 +1,86 @@
+---
+// Astro component
+import { Icon } from "astro-icon/components";
+import Emblems from "@components/emblems.astro";
+---
+
+<footer class="bg-gray-50 py-8 mt-4">
+  <div class="container mx-auto px-4">
+    <div
+      class="flex justify-between items-center mb-8 border-b border-gray-300 pb-4">
+      <!-- Logo and Contact Info -->
+      <div class="flex items-center space-x-4">
+        <img src="/logo-transparent.png" alt="Logo" class="w-20 h-20" />
+        <div class="text-sm text-gray-800">
+          <p class="font-bold">تلفن پشتیبانی: ۳۲۲۸۴۳۶۵ - ۰۱۱</p>
+          <p class="font-bold">
+            دفتر مرکزی: استان مازندران - شهر بابل - کتی غربی - کوچه خداداد ۲۳ -
+            پلاک ۱۲
+          </p>
+          <p>پاسخگوی شما هستیم.</p>
+        </div>
+      </div>
+      <!-- Branding -->
+      <div>
+        <h1 class="text-indigo-700 font-bold text-xl">ایمن‌ترید</h1>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-800">
+      <!-- Section 1: About -->
+      <div>
+        <h3 class="font-bold text-lg mb-4">معرفی کوتاه ایمن‌ترید</h3>
+        <p class="text-sm leading-relaxed">
+          با ایمن‌ترید تریدر ها می‌تونن از هر کجای دنیا هر کشوری رو که خودشون
+          دوست دارن انتخاب کنن تا ما یه سرویس سریع و ایمن و حرفه ای رو، اختصاصی
+          برای خودشون درست کنیم. یه جورایی ما میشیم مهندس اینترنت اخصاصی شون که
+          هر موقع مشکلی داشتن می‌تونن به ما بگن تا یه راه حلی براشون ارائه بدیم.
+        </p>
+      </div>
+
+      <!-- Section 2: Social Media -->
+      <div class="text-center">
+        <h3 class="font-bold text-lg mb-4">شبکه‌های اجتماعی</h3>
+        <div class="flex justify-center space-x-4 rtl:space-x-reverse">
+          <a
+            href="https://t.me/eementrade"
+            target="_blank"
+            class="inline-block w-10 h-10 text-white flex items-center justify-center rounded-full shadow hover:bg-blue-400 transition">
+            <Icon class="size-8 md:size-12" name="logos:telegram" />
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <h3 class="font-bold text-lg mb-4">نماد ها</h3>
+        <Emblems />
+      </div>
+      <!-- Section 3: Customer Services
+      <div>
+        <h3 class="font-bold text-lg mb-4">خدمات مشتری</h3>
+        <ul class="text-sm space-y-2">
+          <li>
+            <a href="#" class="text-gray-600 hover:text-gray-800 transition"
+              >سوالات متداول</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-gray-600 hover:text-gray-800 transition"
+              >پیگیری بسته‌ها</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-gray-600 hover:text-gray-800 transition"
+              >درباره ما</a
+            >
+          </li>
+          <li>
+            <a href="#" class="text-gray-600 hover:text-gray-800 transition"
+              >حریم خصوصی</a
+            >
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+</footer>

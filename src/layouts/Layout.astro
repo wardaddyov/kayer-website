@@ -1,0 +1,129 @@
+---
+import { SEO } from "astro-seo";
+import Footer from "@components/footer.astro";
+import Emblems from "@components/emblems.astro";
+import Navbar from "@components/navbar/navbar.astro";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/bricolage-grotesque";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const resolvedImageWithDomain = new URL(
+  "/opengraph.jpg",
+  Astro.site,
+).toString();
+
+const { title } = Astro.props;
+
+const makeTitle = title ? title + " | ایمن‌ترید" : "ایمن‌ترید";
+---
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
+    <SEO
+      title={makeTitle}
+      description="EEmentrade provides networking services to Iranian traders"
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: `Astroship - Starter Template for Astro`,
+          image: resolvedImageWithDomain,
+        },
+        image: {
+          alt: "Astroship Homepage Screenshot",
+        },
+      }}
+    />
+    <!-- Matomo -->
+    <script>
+      var _paq = (window._paq = window._paq || []);
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      (function () {
+        var u = "//analytics.eementrade.com/";
+        _paq.push(["setTrackerUrl", u + "matomo.php"]);
+        _paq.push(["setSiteId", "1"]);
+        var d = document,
+          g = d.createElement("script"),
+          s = d.getElementsByTagName("script")[0];
+        g.async = true;
+        g.src = u + "matomo.js";
+        s.parentNode.insertBefore(g, s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "onnqqmt8pl");
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = "https://app.eementrade.com";
+        document.body.appendChild(iframe);
+      });
+    </script>
+    <script>
+      !(function (t, e, n) {
+        (t.yektanetAnalyticsObject = n),
+          (t[n] =
+            t[n] ||
+            function () {
+              t[n].q.push(arguments);
+            }),
+          (t[n].q = t[n].q || []);
+        var a = new Date(),
+          r =
+            a.getFullYear().toString() +
+            "0" +
+            a.getMonth() +
+            "0" +
+            a.getDate() +
+            "0" +
+            a.getHours(),
+          c = e.getElementsByTagName("script")[0],
+          s = e.createElement("script");
+        s.id = "ua-script-ll3uWXd1";
+        s.dataset.analyticsobject = n;
+        s.async = 1;
+        s.type = "text/javascript";
+        (s.src =
+          "https://cdn.yektanet.com/rg_woebegone/scripts_v3/ll3uWXd1/rg.complete.js?v=" +
+          r),
+          c.parentNode.insertBefore(s, c);
+      })(window, document, "yektanet");
+    </script>
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <!-- <Emblems /> -->
+    <Footer />
+  </body>
+</html>

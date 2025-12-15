@@ -1,0 +1,83 @@
+---
+// PricingCard.astro
+export interface PricingCardProps {
+  name: string;
+  price: string;
+  unit: string;
+  period: string;
+  popular: boolean;
+  features: string[];
+  button: {
+    text: string;
+    link: string;
+    style: string;
+  };
+  badge?: string;
+}
+
+const { name, price, unit, period, popular, features, button, badge } =
+  Astro.props;
+---
+
+<div
+  class={`flex flex-col w-full border py-5 mt-12 px-6 relative rounded-lg shadow-sm ${
+    popular
+      ? "border-orange-500 shadow-lg shadow-orange-50"
+      : "border-neutral-200"
+  }`}>
+  {
+    badge && (
+      <span class="inline-flex absolute px-3 py-1 text-xs -top-3 left-1/2 -translate-x-1/2 font-medium rounded-full bg-gradient-to-r from-red-500 to-orange-500 text-white">
+        {badge}
+      </span>
+    )
+  }
+  <div class="self-center">
+    <h3
+      class={`${popular ? "text-orange-700" : "text-indigo-600"} text-center`}>
+      {name}
+    </h3>
+    <div class="flex items-center pt-5">
+      <div class="text-6xl font-bold text-gray-800 ml-2">{price}</div>
+      <div class="flex flex-col text-right space-y-1">
+        <div class="text-sm font-light text-gray-600">{unit}</div>
+        <div
+          class={`text-sm font-medium ${popular ? "text-orange-700" : "text-indigo-600"}`}>
+          {period}
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="grid mt-8 text-left gap-y-4">
+    {
+      features.map((feature) => (
+        <li class="flex items-center gap-3 text-neutral-800">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 256 256"
+            class={`${popular ? "text-orange-600" : "text-indigo-600"} w-5 h-5`}
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="currentColor"
+              d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm45.66 85.66l-56 56a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L112 148.69l50.34-50.35a8 8 0 0 1 11.32 11.32Z"
+            />
+          </svg>
+          <span class="text-sm">{feature}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="flex mt-8">
+    <a
+      href={button.link}
+      class={`rounded-full text-center transition w-full px-7 py-2.5 ${
+        button.style === "primary"
+          ? "bg-orange-600  text-white   hover:bg-indigo-700 "
+          : "bg-white border-2 border-indigo-500 hover:bg-indigo-700 hover:text-white text-indigo-600"
+      }`}
+      target={button.link.startsWith("http") ? "_blank" : "_self"}>
+      {button.text}
+    </a>
+  </div>
+</div>

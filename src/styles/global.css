@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'IranSans';
+    src: url('../../public/fonts/IRANSans-web.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'IRANYekan';
+    font-style: normal;
+    font-weight: 400;
+    src:  url("../../public/fonts/IRANYekanX-Regular.woff2") format("woff2"),
+  }
+
+
+@font-face {
+  font-family: 'IRANYekanBakh';
+  font-style: normal;
+  font-weight: 400;
+  src:  url("../../public/fonts/YEKAN BAKH FANUM 04 REGULAR.TTF"),
+}
+
+@font-face {
+  font-family: 'IRANYekanBakh';
+  font-style: bold;
+  src:  url("../../public/fonts/YEKAN BAKH FANUM 06 BOLD.TTF"),
+}

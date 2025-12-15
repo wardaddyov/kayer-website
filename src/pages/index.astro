@@ -1,0 +1,22 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Cta2 from "@components/cta2.astro";
+import Features from "@components/features.astro";
+import Hero from "@components/hero.astro";
+import Logos from "@components/logos.astro";
+import Layout from "@layouts/Layout.astro";
+import FAQ from "@components/faq.astro";
+import FaqList from "@components/faqs.jsx";
+---
+
+<Layout title="EEmenTrade">
+  <Container>
+    <Hero />
+    <Features />
+    <Cta />
+    <Logos />
+    <FaqList client:visible />
+    <!-- <Cta2 /> -->
+  </Container>
+</Layout>

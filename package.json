@@ -1,0 +1,45 @@
+{
+  "name": "astroship",
+  "type": "module",
+  "version": "2.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.0.1",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/sitemap": "^3.1.5",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.0.6",
+    "@fontsource-variable/inter": "^5.0.18",
+    "@iconify-json/bx": "^1.1.10",
+    "@iconify-json/simple-icons": "^1.1.102",
+    "@iconify-json/skill-icons": "^1.2.0",
+    "@iconify-json/uil": "^1.1.8",
+    "@syncfusion/ej2-base": "^26.2.10",
+    "@syncfusion/ej2-buttons": "^26.2.10",
+    "@syncfusion/ej2-inputs": "^26.2.11",
+    "@syncfusion/ej2-react-buttons": "^26.2.10",
+    "@syncfusion/ej2-react-inputs": "^26.2.11",
+    "@tailwindcss/typography": "^0.5.13",
+    "astro": "^4.8.7",
+    "astro-icon": "^1.1.0",
+    "astro-navbar": "^2.3.2",
+    "astro-seo": "^0.8.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.4",
+    "tailwindcss": "^3.4.3"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "^1.2.3",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,68 @@
+---
+// @ts-ignore
+import { Icon } from "astro-icon/components";
+
+const features = [
+  {
+    title: "انتخاب کشور دلخواه",
+    description:
+      "دیگه نگران محدودیت‌های جغرافیایی نباشید! تحریم‌شکن سفارشی شما رو دقیقاً با تنظیمات کشور مورد نیازتون، از هر نقطه‌ای در دنیا آماده می‌کنیم تا بتونید بدون دغدغه به صرافی مورد نظرتون وصل بشید.",
+    icon: "bx:map-pin",
+  },
+  {
+    title: "گارانتی ۱۰۰٪ بازگشت وجه",
+    description:
+      "رضایت شما اولویت اول ماست. ما مطمئنیم که از خدمات ما راضی خواهید بود، اما اگر به هر دلیلی احساس کردید خدمات ما برای شما مناسب نیست، می‌توانید به سادگی درخواست بازگشت وجه دهید و ۱۰۰٪ مبلغ پرداختی خود را بدون هیچ سوالی دریافت کنید. هدف ما اینه که تجربه‌ای عالی و بدون ریسک برای شما فراهم کنیم.",
+    icon: "bx:bolt-circle",
+  },
+  {
+    title: "اعتماد کامل، خرید امن",
+    description:
+      "با نماد اعتماد الکترونیک و درگاه پرداخت معتبر پی‌پینگ، امنیت و اعتماد خرید شما تضمین شده است. با اطمینان کامل از خدمات ما بهره‌مند شوید و تجربه‌ای بی‌نظیر از کیفیت و امنیت خرید اینترنتی را تجربه کنید.",
+    icon: "bx:broadcast",
+  },
+  {
+    title: "پشتیبانی حرفه‌ای، همیشه در کنار شما",
+    description:
+      "با پشتیبانی تلفنی در کمترین زمان ممکن راه حل مشکلاتتون رو پیدا کنید!",
+    icon: "bx:headphone",
+  },
+  {
+    title: "اتصال پرسرعت و بدون قطعی",
+    description:
+      "هزینه سرویس ها بالاست و برای مشتریان حرفه ای درنظر گرفته شده. با تحریم‌شکن های ما نگران قطعی و کندی نباشید",
+    icon: "bx:target-lock",
+  },
+
+  {
+    title: "کاربری آسان و سریع",
+    description:
+      "اطلاعات لازم براتون پیامک میشه تا هر موقع خواستید به تحریم‌شکن‌تون دسترسی داشته باشید",
+    icon: "bx:leaf",
+  },
+];
+---
+
+<div class="md:mt-0 text-center">
+  <h2 class="text-xl lg:text-3xl lg:mt-0 font-bold lg:tracking-tight mt-2">
+    آنچه تحریم‌شکن ما را از دیگران متمایز می‌کند!
+  </h2>
+  <!-- <strong class="text-lg text-slate-700 lg:hidden">
+    آنچه سرویس‌های ما را از دیگران متمایز می‌کند!
+  </strong> -->
+</div>
+<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-10 md:mt-16 gap-16">
+  {
+    features.map((item) => (
+      <div class="flex gap-4 items-start">
+        <div class="mt-1 bg-indigo-800 rounded-full  p-2 w-8 h-8 shrink-0">
+          <Icon class="text-white" name={item.icon} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
+          <p class="text-slate-500 mt-2 leading-relaxed ">{item.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

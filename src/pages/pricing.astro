@@ -1,0 +1,83 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import PricingCard from "@components/pricing.astro";
+import FAQ from "@components/faq.astro";
+
+const pricing = [
+  {
+    name: "آزمایشی",
+    price: "رایگان",
+    unit: "",
+    period: "",
+    popular: false,
+    features: [
+      "سرور ارمنستان",
+      "یک هفته مهلت تست",
+      "تک کاربره",
+      "دو گیگابایت ترافیک",
+      "ارائه آی‌پی ثابت اشتراکی",
+    ],
+    button: {
+      text: "امنیت و سرعت را رایگان تجربه کنید",
+      link: "https://app.eementrade.com/#/login?gS=1&sT=Tr",
+      style: "outline",
+    },
+  },
+  {
+    name: "حرفه ای",
+    price: "۸۹۹",
+    unit: "هزار تومان",
+    period: "ماهیانه",
+    popular: false,
+    features: [
+      "سرور ارمنستان",
+      "ترافیک نا‌محدود ماهیانه",
+      "تک کاربره",
+      "پشتیبانی تلفنی",
+      "ارائه آی‌پی ثابت اشتراکی",
+    ],
+    button: {
+      text: "ثبت سفارش",
+      link: "https://app.eementrade.com/#/login?gS=1&sT=Premium",
+      style: "outline",
+    },
+  },
+  {
+    name: "پلن سفارشی",
+    price: "۳,۲",
+    unit: "میلیون تومان",
+    period: "ماهیانه",
+    popular: true,
+    features: [
+      "سرور در کشور دلخواه شما",
+      "ترافیک نامحدود ماهیانه",
+      "۵ دستگاه همزمان",
+      "اولویت در پشتیبانی",
+      "یک آی‌پی، در یک نقطه از جهان، برای یک نفر",
+    ],
+    button: {
+      text: "تماس با واحد فروش",
+      link: "https://t.me/eementrade",
+      style: "primary",
+    },
+    badge: "اختصاصی",
+  },
+];
+---
+
+<Layout title="Pricing">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">سرویس ها</Fragment>
+      <Fragment slot="desc">قیمت گذاری ها و ویژگی های هر سرویس</Fragment>
+    </Sectionhead>
+
+    <div
+      class="grid md:grid-cols-3 gap-x-6 mx-auto max-w-screen-lg mt-12 justify-items-center">
+      {pricing.map((plan) => <PricingCard {...plan} />)}
+    </div>
+    <FAQ />
+  </Container>
+</Layout>

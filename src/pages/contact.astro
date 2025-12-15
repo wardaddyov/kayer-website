@@ -1,0 +1,46 @@
+---
+import Contactform from "@components/contactform.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Layout from "@layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Layout title="Contact">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">ارتباط با ما</Fragment>
+      <Fragment slot="desc">با ما در ارتباط باشید</Fragment>
+    </Sectionhead>
+
+    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
+      <div>
+        <h2 class="font-medium text-2xl text-gray-800">راه های ارتباطی</h2>
+        <p class="text-lg leading-relaxed text-slate-500 mt-3">
+          از طریق فرم رو‌به‌رو و راه های زیر شنوای شما هستیم
+        </p>
+        <div class="mt-5">
+          <!-- <div class="flex items-center mt-2 space-x-2 text-gray-600">
+            <Icon class="text-gray-400 w-4 h-4" name="uil:map-marker" />
+            <span>1734 Sanfransico, CA 93063</span>
+          </div> -->
+          <!-- <div class="flex items-center mt-2 space-x-2 text-gray-600">
+            <Icon class="text-gray-400 w-4 h-4" name="uil:envelope" /><a
+              href="mailto:hello@astroshipstarter.com"
+              >hello@astroshipstarter.com</a
+            >
+          </div> -->
+          <div class="flex items-center mt-2 space-x-2 text-gray-600">
+            <Icon class="text-gray-400 w-4 h-4 ml-2" name="uil:phone" /><a
+              href="tel:+98 (11) 32284365">
+              011-32284365
+            </a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <Contactform />
+      </div>
+    </div>
+  </Container>
+</Layout>
