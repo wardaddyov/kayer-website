@@ -133,7 +133,7 @@
     }
     document.getElementById("phone-error").classList.add("hidden");
 
-    const res = await fetch("http://localhost:5224/crm/request-otp", {
+    const res = await fetch("https://kayerapp.ir/crm/request-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ phone: Number(phone) }),
@@ -146,7 +146,7 @@
   document.getElementById("otp-submit").onclick = async () => {
     const otp = document.getElementById("otp").value;
     const phone = document.getElementById("phone").value;
-    const res = await fetch("http://localhost:5224/crm/verify-otp", {
+    const res = await fetch("https://kayerapp.ir/crm/verify-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ phone: Number(phone), otp }),
@@ -174,7 +174,7 @@
       position: position.value,
     };
 
-    const res = await fetch("http://localhost:5224/crm/complete-profile", {
+    const res = await fetch("https://kayerapp.ir/crm/complete-profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
