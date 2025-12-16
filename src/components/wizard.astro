@@ -1,0 +1,203 @@
+---
+
+---
+
+<!-- WizardDialog.astro -->
+<div
+  id="wizard-root"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50">
+  <div class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+    <!-- Close button -->
+    <button
+      id="close-wizard-top"
+      class="absolute left-3 top-3 rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-indigo-700"
+      aria-label="Close">
+      ✕
+    </button>
+
+    <!-- Content -->
+    <div id="step-1" class="step">
+      <h2 class="mb-4 text-xl font-bold text-indigo-700">ورود شماره موبایل</h2>
+      <input
+        id="phone"
+        type="text"
+        placeholder="09123456789"
+        class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+      />
+      <p id="phone-error" class="mt-2 hidden text-sm text-red-500">
+        شماره موبایل معتبر نیست
+      </p>
+      <button
+        id="phone-submit"
+        class="mt-4 w-full rounded-lg bg-indigo-700 py-3 text-white">
+        ادامه
+      </button>
+    </div>
+
+    <div id="step-2" class="step hidden">
+      <h2 class="mb-4 text-xl font-bold text-indigo-700">کد تایید</h2>
+      <input
+        id="otp"
+        type="text"
+        placeholder="کد ارسال شده"
+        class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+      />
+      <button
+        id="otp-submit"
+        class="mt-4 w-full rounded-lg bg-indigo-700 py-3 text-white">
+        تایید
+      </button>
+    </div>
+
+    <div id="step-3" class="step hidden">
+      <h2 class="mb-4 text-xl font-bold text-indigo-700">اطلاعات فردی</h2>
+      <div class="space-y-3">
+        <input
+          id="firstname"
+          placeholder="نام"
+          class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+        />
+        <input
+          id="lastname"
+          placeholder="نام خانوادگی"
+          class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+        />
+        <input
+          id="province"
+          placeholder="استان"
+          class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+        />
+        <input
+          id="city"
+          placeholder="شهر"
+          class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+        />
+        <input
+          id="position"
+          placeholder="سمت در مدرسه"
+          class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+        />
+      </div>
+      <button
+        id="profile-submit"
+        class="mt-4 w-full rounded-lg bg-indigo-700 py-3 text-white">
+        ثبت اطلاعات
+      </button>
+    </div>
+
+    <div id="step-4" class="step hidden text-center">
+      <h2 class="mb-4 mt-8 text-xl font-bold text-indigo-700">
+        در اولین فرصت با شما تماس می‌گیریم
+      </h2>
+      <p class="mb-6">اطلاعات شما با موفقیت ثبت شد</p>
+      <!-- <button
+        id="close-wizard"
+        class="w-full rounded-lg bg-indigo-700 py-3 text-white">
+        بستن
+      </button> -->
+    </div>
+
+    <!-- Dots -->
+    <div class="mt-6 flex justify-center gap-2">
+      <span class="dot h-3 w-3 rounded-full bg-gray-300"></span>
+      <span class="dot h-3 w-3 rounded-full bg-gray-300"></span>
+      <span class="dot h-3 w-3 rounded-full bg-gray-300"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.getElementById("wizard-root");
+  const steps = document.querySelectorAll(".step");
+  const dots = document.querySelectorAll(".dot");
+  let currentStep = 0;
+
+  function showStep(index) {
+    steps.forEach((s, i) => s.classList.toggle("hidden", i !== index));
+    dots.forEach((d, i) => {
+      d.classList.toggle("bg-indigo-700", i <= index && index < 3);
+      d.classList.toggle("bg-gray-300", i > index);
+    });
+    currentStep = index;
+  }
+
+  function isValidIranPhone(phone) {
+    return /^09\d{9}$/.test(phone);
+  }
+
+  document.getElementById("phone-submit").onclick = async () => {
+    const phone = document.getElementById("phone").value;
+    if (!isValidIranPhone(phone)) {
+      document.getElementById("phone-error").classList.remove("hidden");
+      return;
+    }
+    document.getElementById("phone-error").classList.add("hidden");
+
+    const res = await fetch("http://localhost:5224/crm/request-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: Number(phone) }),
+    });
+
+    if (!res.ok) return alert("خطا در ارسال کد تایید");
+    showStep(1);
+  };
+
+  document.getElementById("otp-submit").onclick = async () => {
+    const otp = document.getElementById("otp").value;
+    const phone = document.getElementById("phone").value;
+    const res = await fetch("http://localhost:5224/crm/verify-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: Number(phone), otp }),
+    });
+
+    if (!res.ok) return alert("کد تایید نامعتبر است");
+    window.__userId = await res.text();
+    showStep(2);
+  };
+
+  document.getElementById("profile-submit").onclick = async () => {
+    const data = {
+      firstname: firstname.value,
+      lastname: lastname.value,
+      province: province.value,
+      city: city.value,
+      position: position.value,
+    };
+    const payload = {
+      id: window.__userId.replace(/^"|"$/g, ""),
+      firstName: firstname.value,
+      lastName: lastname.value,
+      province: province.value,
+      city: city.value,
+      position: position.value,
+    };
+
+    const res = await fetch("http://localhost:5224/crm/complete-profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) return alert("خطا در ثبت اطلاعات");
+    showStep(3);
+  };
+
+  // document.getElementById("close-wizard").onclick = () => {
+  //   root.classList.add("hidden");
+  //   showStep(0);
+  // };
+
+  // expose open
+  window.openWizard = () => {
+    event.preventDefault();
+    root.classList.remove("hidden");
+    showStep(0);
+  };
+
+  document.getElementById("close-wizard-top").onclick = () => {
+    root.classList.add("hidden");
+    showStep(0);
+  };
+</script>

@@ -2,6 +2,7 @@
 import { Picture } from "astro:assets";
 import heroImage from "assets/heroImage2.avif";
 import Link from "@components/ui/link.astro";
+import Wizard from "./wizard.astro";
 ---
 
 <main class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12">
@@ -20,7 +21,7 @@ import Link from "@components/ui/link.astro";
     <div id="cta" class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
       <Link
         href="#"
-        href="/pricing"
+        onclick="openWizard()"
         class="flex gap-1 items-center justify-center bg-indigo-600 text-black hover:bg-blue-600 rounded-full">
         <!-- دسترسی فوری به صرافی‌های جهانی -->
         برای دریافت نمونه کارنامه اختصاصی کلیک کنید
