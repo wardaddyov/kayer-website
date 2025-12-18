@@ -14,6 +14,14 @@
       aria-label="Close">
       ✕
     </button>
+    <!-- Loading overlay -->
+    <div
+      id="loading"
+      class="absolute inset-0 z-50 hidden flex items-center justify-center rounded-2xl bg-white/80">
+      <div
+        class="h-10 w-10 animate-spin rounded-full border-4 border-indigo-700 border-t-transparent">
+      </div>
+    </div>
 
     <!-- Content -->
     <div id="step-1" class="step">
@@ -73,6 +81,11 @@
           class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
         />
         <input
+          id="schoolName"
+          placeholder="نام مدرسه"
+          class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
+        />
+        <input
           id="position"
           placeholder="سمت در مدرسه"
           class="w-full rounded-lg border p-3 focus:border-indigo-700 focus:outline-none"
@@ -110,7 +123,16 @@
   const root = document.getElementById("wizard-root");
   const steps = document.querySelectorAll(".step");
   const dots = document.querySelectorAll(".dot");
+  const address = "https://kayerapp.ir"; //"http://localhost:5224";
   let currentStep = 0;
+
+  const flowId = crypto.randomUUID();
+
+  const loading = document.getElementById("loading");
+
+  function setLoading(isLoading) {
+    loading.classList.toggle("hidden", !isLoading);
+  }
 
   function showStep(index) {
     steps.forEach((s, i) => s.classList.toggle("hidden", i !== index));
@@ -127,61 +149,82 @@
 
   document.getElementById("phone-submit").onclick = async () => {
     const phone = document.getElementById("phone").value;
+
     if (!isValidIranPhone(phone)) {
       document.getElementById("phone-error").classList.remove("hidden");
       return;
     }
+
     document.getElementById("phone-error").classList.add("hidden");
+    setLoading(true);
 
-    const res = await fetch("https://kayerapp.ir/crm/request-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone: Number(phone) }),
-    });
+    try {
+      const res = await fetch(address + "/crm/request-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Flow-ID": flowId },
+        body: JSON.stringify({ phone: Number(phone) }),
+      });
 
-    if (!res.ok) return alert("خطا در ارسال کد تایید");
-    showStep(1);
+      if (!res.ok) throw new Error();
+      showStep(1);
+    } catch {
+      alert("خطا در ارسال کد تایید");
+    } finally {
+      setLoading(false);
+    }
   };
 
   document.getElementById("otp-submit").onclick = async () => {
     const otp = document.getElementById("otp").value;
     const phone = document.getElementById("phone").value;
-    const res = await fetch("https://kayerapp.ir/crm/verify-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone: Number(phone), otp }),
-    });
 
-    if (!res.ok) return alert("کد تایید نامعتبر است");
-    window.__userId = await res.text();
-    showStep(2);
+    setLoading(true);
+
+    try {
+      const res = await fetch(address + "/crm/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Flow-ID": flowId },
+        body: JSON.stringify({ phone: Number(phone), otp }),
+      });
+
+      if (!res.ok) throw new Error();
+
+      window.__userId = (await res.text()).replace(/^"|"$/g, "");
+      showStep(2);
+    } catch {
+      alert("کد تایید نامعتبر است");
+    } finally {
+      setLoading(false);
+    }
   };
 
   document.getElementById("profile-submit").onclick = async () => {
-    const data = {
-      firstname: firstname.value,
-      lastname: lastname.value,
-      province: province.value,
-      city: city.value,
-      position: position.value,
-    };
     const payload = {
-      id: window.__userId.replace(/^"|"$/g, ""),
+      id: window.__userId,
       firstName: firstname.value,
       lastName: lastname.value,
       province: province.value,
       city: city.value,
       position: position.value,
+      schoolName: schoolName.value,
     };
 
-    const res = await fetch("https://kayerapp.ir/crm/complete-profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    setLoading(true);
 
-    if (!res.ok) return alert("خطا در ثبت اطلاعات");
-    showStep(3);
+    try {
+      const res = await fetch(address + "/crm/complete-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Flow-ID": flowId },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error();
+      showStep(3);
+    } catch {
+      alert("خطا در ثبت اطلاعات");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // document.getElementById("close-wizard").onclick = () => {
